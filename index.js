@@ -11,87 +11,119 @@ module.exports = exports = markdown2confluence
 
 var MAX_CODE_LINE = 20
 
-function Renderer() {}
+function Renderer() { }
 
 var rawRenderer = marked.Renderer
 
 var langArr = 'actionscript3 bash csharp coldfusion cpp css delphi diff erlang groovy java javafx javascript perl php none powershell python ruby scala sql vb html/xml'.split(/\s+/)
 var langMap = {
-	shell: 'bash', 
-	html: 'html', 
-	xml: 'xml'
+	'actionscript3': 'actionscript3',
+	'applescript': 'applescript',
+	'bash': 'bash',
+	'c#': 'c#',
+	'csharp': 'c#',
+	'c++': 'cpp',
+	'cpp': 'cpp',
+	'css': 'css',
+	'coldfusion': 'coldfusion',
+	'erlang': 'erl',
+	'erl': 'erl',
+	'groovy': 'groovy',
+	'java': 'java',
+	'javafx': 'jfx',
+	'jfx': 'jfx',
+	'javascript': 'js',
+	'js': 'js',
+	'php': 'php',
+	'perl': 'perl',
+	'text': 'text',
+	'plain text': 'text',
+	'powershell': 'powershell',
+	'python': 'py',
+	'ruby': 'ruby',
+	'sql': 'sq',
+	'sass': 'sass',
+	'scala': 'scala',
+	'vb': 'vb',
+	'visualbasic': 'vb',
+	'diff': 'diff',
+	'shell': 'bash',
+	'html': 'xml',
+	'xml': 'xml'
 }
 for (var i = 0, x; x = langArr[i++];) {
 	langMap[x] = x
 }
 
 _.extend(Renderer.prototype, rawRenderer.prototype, {
-	  paragraph: function(text) {
+	paragraph: function (text) {
+		text = text.replace(/\{\{/g, '__markdown2confluence_brackets_front__').replace(/\{/g, '\\{').replace(/__markdown2confluence_brackets_front__/g, '{{');
+		text = text.replace(/\}\}/g, '__markdown2confluence_brackets_end__').replace(/\}/g, '\\}').replace(/__markdown2confluence_brackets_end__/g, '}}');
 		return text + '\n\n'
 	}
-	, html: function(html) {
+	, html: function (html) {
 		return html
 	}
-	, heading: function(text, level, raw) {
+	, heading: function (text, level, raw) {
 		return 'h' + level + '. ' + text + '\n\n'
 	}
-	, strong: function(text) {
+	, strong: function (text) {
 		return '*' + text + '*'
 	}
-	, em: function(text) {
+	, em: function (text) {
 		return '_' + text + '_'
 	}
-	, del: function(text) {
+	, del: function (text) {
 		return '-' + text + '-'
 	}
-	, codespan: function(text) {
+	, codespan: function (text) {
 		return '{{' + text + '}}'
 	}
-	, blockquote: function(quote) {
+	, blockquote: function (quote) {
 		return '{quote}' + quote + '{quote}'
 	}
-	, br: function() {
+	, br: function () {
 		return '\n'
 	}
-	, hr: function() {
+	, hr: function () {
 		return '----'
 	}
-	, link: function(href, title, text) {
+	, link: function (href, title, text) {
 		var arr = [href]
 		if (text) {
 			arr.unshift(text)
 		}
 		return '[' + arr.join('|') + ']'
 	}
-	, list: function(body, ordered) {
-		var arr = _.filter(_.trim(body).split('\n'), function(line) {
+	, list: function (body, ordered) {
+		var arr = _.filter(_.trim(body).split('\n'), function (line) {
 			return line
 		})
 		var type = ordered ? '#' : '*'
-		return _.map(arr, function(line) {
+		return _.map(arr, function (line) {
 			return type + ' ' + line
 		}).join('\n') + '\n\n'
 
 	}
-	, listitem: function(body, ordered) {
+	, listitem: function (body, ordered) {
 		return body + '\n'
 	}
-	, image: function(href, title, text) {
+	, image: function (href, title, text) {
 		return '!' + href + '!'
 	}
-	, table: function(header, body) {
+	, table: function (header, body) {
 		return header + body + '\n'
 	}
-	, tablerow: function(content, flags) {
+	, tablerow: function (content, flags) {
 		return content + '\n'
 	}
-	, tablecell: function(content, flags) {
+	, tablecell: function (content, flags) {
 		var type = flags.header ? '||' : '|'
 		return type + content
 	}
-	, code: function(code, lang) {
+	, code: function (code, lang) {
 		// {code:language=java|borderStyle=solid|theme=RDark|linenumbers=true|collapse=true}
-		if(lang) {
+		if (lang) {
 			lang = lang.toLowerCase()
 		}
 		lang = langMap[lang] || 'none'
@@ -105,7 +137,7 @@ _.extend(Renderer.prototype, rawRenderer.prototype, {
 		var lineCount = _.split(code, '\n').length
 		if (lineCount > MAX_CODE_LINE) {
 			// code is too long
-			param.collapse = true
+			//param.collapse = true
 		}
 		param = qs.stringify(param, '|', '=')
 		return '{code:' + param + '}\n' + code + '\n{code}\n\n'
@@ -115,5 +147,5 @@ _.extend(Renderer.prototype, rawRenderer.prototype, {
 var renderer = new Renderer()
 
 function markdown2confluence(markdown) {
-	return marked(markdown, {renderer: renderer})
+	return marked(markdown, { renderer: renderer })
 }
