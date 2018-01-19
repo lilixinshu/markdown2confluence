@@ -1,26 +1,56 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>markdown2confluence</title>
-		<meta name="viewport" content="width=device-width"/>
-		<meta name="renderer" content="webkit"/>
-		<style>textarea {
-			width: 600px;
-			height: 400px;
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>markdown2confluence</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta name="renderer" content="webkit" />
+	<style>
+		div {
+			margin: 10px;
 		}
-</style>
+
+		button {
+			margin-top: 300px;
+			font-size: 20px;
+			width: 100%;
+		}
+
+		textarea {
+			width: 100%;
+			height: 600px;
+		}
+
+		.left {
+			float: left;
+		}
+
+		.clear {
+			clear: both;
+		}
+	</style>
 </head>
+
 <body>
-	<h1>put markdown here</h1>
-	<textarea id="markdown"></textarea>
-	<p>
-		<button id="convert">convert</button>
-	</p
-	><h1>generated confluence markup</h1>
-	<textarea id="markup"></textarea>
+	<div>
+		<div class="left" style="width:600px;">
+			<h1>这里填写Markdown语法</h1>
+			<textarea id="markdown"></textarea>
+		</div>
+		<div class="left" style="width:100px;">
+			<button id="convert">转换</button>
+		</div>
+		<div class="left" style="width:600px;">
+			<h1>生成的confluence语法</h1>
+			<textarea id="markup"></textarea>
+		</div>
+		<div class="clear"></div>
+	</div>
+
 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src="./bundle.js"></script>
 </body>
+
 </html>

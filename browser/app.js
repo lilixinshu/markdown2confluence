@@ -9,6 +9,6 @@ $('#convert').click(function() {
 $(init)
 
 function init() {
-	$('#markdown').val(demoMarkdown)
-	$('#convert').trigger('click')
+	// $('#markdown').val(demoMarkdown)
+	// $('#convert').trigger('click')
 }
