@@ -1,8 +1,8 @@
-Markdown2Confluence
+# Markdown2Confluence
 
-##使markdown语法转换为 confluence 语法的工具
-
-##使用方法
+使markdown语法转换为 confluence 语法的工具
+
+## 使用方法
 
 1. 下载源码
 
