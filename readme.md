@@ -11,7 +11,9 @@
 ### 1.下载源码
 
 ### 2.打开方式
+
 方式一：浏览器里打开 `browser/index.html`
+
 方式二：如果装有node，命令行中输入：`node index_web.js`，浏览器里打开 http://localhost:9001
 ![](pic/1.png)
 
