@@ -1,12 +1,12 @@
 # Markdown2Confluence
 
-## 使markdown语法转换为 confluence 语法的工具
-
-## 使用方法
+> 使markdown语法转换为 confluence 语法的工具
 
 > 注意事项
 > 1. markdown的规范中，标题行`#`和内容必须有空格，如`# 标题1`,`## 标题2`,没有空格则不能被正确解析
 > 2. 本地图片不能复制到confluence里，需要手动上传，远程图片无碍
+
+## 使用方法
 
 ### 1.下载源码
 
@@ -20,3 +20,5 @@
 
 ### 5.粘贴代码
 ![](pic/3.png)
+
+### 6.点击 instert 按钮
